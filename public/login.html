@@ -17,27 +17,49 @@
 
 <body class="bebas-neue-regular bg-linear-to-r from-[#242441] via-[#16213e] to-[#0f3460] text-cyan-300
 ">
-<div class="w-full text-start p-3"><a href="registration.html">
-<button class="hover:bg-linear-to-br from-[#1e7c89] to-[#2d600f] border border-black hover:cursor-pointer hover:scale-105 p-1 rounded-xl">Registration page</button></a>
-</div>
+    <div class="w-full text-start p-3"><a href="registration.html">
+            <button
+                class="hover:bg-linear-to-br from-[#1e7c89] to-[#2d600f] border border-black hover:cursor-pointer hover:scale-105 p-1 rounded-xl">Registration
+                page</button></a>
+    </div>
     <div class="container w-full flex justify-center">
         <div class="grid gap-4 mt-15 border border-black p-6 rounded-xl ">
             <h1 class="flex justify-center text-5xl">Login FORM</h1>
             <form class="w-full mt-6 flex flex-col gap-4">
-                <div class="pb-1">Name : </div>
-                <input id="nameCls" class="border border-gray-500 rounded-lg p-1 w-full" type="text" required
-                    placeholder="Enter your name">
+                <!-- <div class="pb-1">Name : </div>
+                <input id="name" class="border border-gray-500 rounded-lg p-1 w-full" type="text" required
+                    placeholder="Enter your name"> -->
                 <div class="pb-1">E-mail : </div>
-                <input class="border border-gray-500 rounded-lg p-1 w-full" type="text" required
+                <input id="email" class="border border-gray-500 rounded-lg p-1 w-full" type="text" required
                     placeholder="Enter your E-mail">
                 <div class="pb-1">Password : </div>
-                <input class="border border-gray-500 rounded-lg p-1 w-full" type="text" required
+                <input id="pass" class="border border-gray-500 rounded-lg p-1 w-full" type="password" required
                     placeholder="Set your Password">
             </form>
-            <button
+            <button id="btn" type="button"
                 class="font-bold hover:cursor-pointer w-fit p-1 rounded-lg hover:scale-105 bg-purple-400 hover shadow-md hover:shadow-purple-500 hover:bg-purple-500">Submit</button>
         </div>
     </div>
+    <script>
+        let btn = document.getElementById("btn").addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value
+            const password = document.getElementById("pass").value
+
+            const res = await fetch("/login",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+            const data = await res.json();
+            alert(data.message)
+        })
+    </script>
 </body>
 
 </html>

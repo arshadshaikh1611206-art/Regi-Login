@@ -1,32 +1,36 @@
-// import express from "express"
-// import { USER } from "../model/user";
-// import brcypt from "bcrypt"
+import express from "express";
+import { USER } from "../model/user.js";
+import bcrypt from "bcrypt";
 
-// export const router = express.Router()
+const router = express.Router()
 
-// router.post("/registration", (rerq, res) => {
-//     async function register() {
-//         let name = document.getElementById("name").value
-//         let Email = document.getElementById("email").value
-//         let Password = document.getElementById("pass").value
-//         try {
-//             const { username, email, password } = [name, Email, Password];
+router.post("/", async (req, res) => {
+    try {
+        const { email, password } = req.body
+        const user = await USER.findOne(email);
+        const isMatch = await bcrypt.compare(password, user.password)
 
-//             // Checking if user Exist
-//             const userExist = await USER.findOne({ username })
-//             if (userExist) {
-//                 return res.status(400).json("User already exist")
-//             }
+        if (!email || !password) {
+            return res.status(400).json({ message: "Please fill the following details" })
+        }
 
-//             // Hashing password 
-//             const salt = await brcypt.genSalt(10)
-//             const hashPass = await brcypt.hash(password, salt)
+        if (!user) {
+            return res.status(401).json({ message: "The current user not Exist" })
+        }
 
-//             // saving user
-//             const user = await USER.create({ username, email, password: hashPass });
-//             return res.json({ message: "User registered sucessfully!" })
-//         } catch (err) {
-//             return res.status(404).json({ error: err.message })
-//         }
-//     }
-// });
+        if (user) {
+            if (!isMatch) {
+                return res.status(200).json({ message: "Invalid Password" })
+            }
+            return res.status(200).json({ data: USER.findOne(email) })
+        }
+
+    } catch (err) {
+        return res.status(500).json({ error: err.message })
+    }
+    finally {
+        console.log(req.body);
+    }
+});
+
+export default router;

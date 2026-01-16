@@ -10,13 +10,13 @@ router.post("/", async (req, res) => {
 
         // Checking if there are any empty field
         if (!username || !email || !password) {
-            return res.status(400).json({message:"Every Field should be fill"})
+            return res.status(400).json({ message: "Every Field should be fill" })
         }
 
         // Checking if user Exist
         const userExist = await USER.findOne({ username })
         if (userExist) {
-            return res.status(400).json({message:"User already exist"})
+            return res.status(400).json({ message: "User already exist" })
         }
 
         // Hashing password 

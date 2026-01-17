@@ -4,7 +4,7 @@ import register from "./routes/regis.js";
 import cors from "cors"
 import login from "./routes/login.js";
 
-const port = 5000;
+const PORT = 5000;
 const app = express();
 
 app.use(express.json())
@@ -17,8 +17,8 @@ app.use(express.static('src'))
 
 const startServer = async () => {
     await connectDB(); // connect to MongoDB first
-    app.listen(port, () => {
-        console.log(`Server running on http://127.0.0.1:${port}`);
+    app.listen(PORT, () => {
+        console.log(`Server running on http://127.0.0.1:${PORT}`);
     });
 };
 startServer();

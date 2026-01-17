@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
         }
 
         // Checking if user Exist
-        const userExist = await USER.findOne({ username })
+        const userExist = await USER.findOne({ email })
         if (userExist) {
             return res.status(400).json({ message: "User already exist" })
         }

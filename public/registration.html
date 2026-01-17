@@ -48,7 +48,7 @@
             const email = document.getElementById("email").value
             const password = document.getElementById("pass").value
 
-            const res = await fetch("/register",
+            const res = await fetch("http://127.0.0.1:5000/register",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

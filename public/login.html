@@ -34,7 +34,7 @@
                     placeholder="Enter your E-mail">
                 <div class="pb-1">Password : </div>
                 <input id="pass" class="border border-gray-500 rounded-lg p-1 w-full" type="password" required
-                    placeholder="Set your Password">
+                    placeholder="Enter Your Password">
             </form>
             <button id="btn" type="button"
                 class="font-bold hover:cursor-pointer w-fit p-1 rounded-lg hover:scale-105 bg-purple-400 hover shadow-md hover:shadow-purple-500 hover:bg-purple-500">Submit</button>
@@ -47,7 +47,7 @@
             const email = document.getElementById("email").value
             const password = document.getElementById("pass").value
 
-            const res = await fetch("/login",
+            const res = await fetch("http://127.0.0.1:5000/login",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
